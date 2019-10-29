@@ -2,15 +2,19 @@ import { useState, useEffect } from "react";
 import fetch from "isomorphic-unfetch";
 import Parser from "rss-parser";
 import PageTitle from "../components/PageTitle";
+import LoadingBars from "../components/LoadingBars";
 
 const Index = ({ posts }) => {
   const [feeds, setFeeds] = useState([]);
   const [articles, setArticles] = useState([]);
   const [feedInput, setFeedInput] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchFeeds = async () => {
-      const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+      setLoading(true);
+      //const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+      const CORS_PROXY = "https://crossorigin.me/";
 
       let parser = new Parser();
       const articles = await Promise.all(
@@ -19,6 +23,7 @@ const Index = ({ posts }) => {
         })
       );
       setArticles(articles);
+      setLoading(false);
     };
     fetchFeeds();
   }, [feeds]);
@@ -32,7 +37,7 @@ const Index = ({ posts }) => {
 
   return (
     <>
-      <PageTitle>RSS Rider</PageTitle>
+      <PageTitle>RSS Rider 🏇</PageTitle>
       <p>
         Next.js PWA Boilerplate starts your progressive web app off with a
         perfect Google Lighthouse score. To see this in action, open this
@@ -70,11 +75,15 @@ const Index = ({ posts }) => {
         placeholder="insert rss feed..."
       />
       <button onClick={() => addFeed(feedInput)}>+</button>
+      <LoadingBars loading={isLoading} />
       <ul>
         {articles.map(article =>
           article.items.map(item => (
             <li>
               <a href={item.link}>{item.title}</a>
+              <section
+                dangerouslySetInnerHTML={{ __html: item.content }}
+              ></section>
             </li>
           ))
         )}
