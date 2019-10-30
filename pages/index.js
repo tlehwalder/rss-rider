@@ -17,8 +17,9 @@ const Index = ({ posts }) => {
       //const CORS_PROXY = "https://crossorigin.me/";
 
       let parser = new Parser();
+      let articles = null;
       try {
-        const articles = await Promise.all(
+        articles = await Promise.all(
           feeds.map(async feed => {
             return await parser.parseURL(CORS_PROXY + feed);
           })
