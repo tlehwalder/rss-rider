@@ -4,8 +4,56 @@ import Parser from "rss-parser";
 import PageTitle from "../components/PageTitle";
 import LoadingBars from "../components/LoadingBars";
 
+function useLocalStorage(key, initialValue) {
+  // State to store our value
+
+  // Pass initial state function to useState so logic is only executed once
+
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      // Get from local storage by key
+
+      const item = window.localStorage.getItem(key);
+
+      // Parse stored json or if none return initialValue
+
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      // If error also return initialValue
+
+      console.log(error);
+
+      return initialValue;
+    }
+  });
+  const setValue = value => {
+    try {
+      // Allow value to be a function so we have same API as useState
+
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+
+      // Save state
+
+      setStoredValue(valueToStore);
+
+      // Save to local storage
+
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      // A more advanced implementation would handle the error case
+
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
+
 const Index = ({ posts }) => {
-  const [feeds, setFeeds] = useState([]);
+  const [feedsLocal, setFeedsLocal] = useLocalStorage("feeds", []);
+
+  const [feeds, setFeeds] = useState(feedsLocal || []);
   const [articles, setArticles] = useState([]);
   const [feedInput, setFeedInput] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -35,6 +83,7 @@ const Index = ({ posts }) => {
 
   function addFeed(url) {
     setFeeds([...feeds, url]);
+    setFeedsLocal([...feeds, url]);
     setFeedInput("");
   }
 
@@ -42,32 +91,6 @@ const Index = ({ posts }) => {
 
   return (
     <>
-      <PageTitle>RSS Rider 🏇</PageTitle>
-      <p>
-        Next.js PWA Boilerplate starts your progressive web app off with a
-        perfect Google Lighthouse score. To see this in action, open this
-        website with Chrome, go to the “Audits” tab in dev tools, and click “Run
-        audit”.
-      </p>
-      <p>
-        Check out the{" "}
-        <a
-          href="https://github.com/pingboard/next-pwa-boilerplate"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          source code
-        </a>{" "}
-        and a more full{" "}
-        <a
-          href="https://nextter.now.sh"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          example
-        </a>{" "}
-        for details.
-      </p>
       <ul>
         {feeds.map(feed => (
           <li>{feed}</li>
