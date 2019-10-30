@@ -13,15 +13,19 @@ const Index = ({ posts }) => {
   useEffect(() => {
     const fetchFeeds = async () => {
       setLoading(true);
-      //const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-      const CORS_PROXY = "https://crossorigin.me/";
+      const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+      //const CORS_PROXY = "https://crossorigin.me/";
 
       let parser = new Parser();
-      const articles = await Promise.all(
-        feeds.map(async feed => {
-          return await parser.parseURL(CORS_PROXY + feed);
-        })
-      );
+      try {
+        const articles = await Promise.all(
+          feeds.map(async feed => {
+            return await parser.parseURL(CORS_PROXY + feed);
+          })
+        );
+      } catch (error) {
+        console.error(error);
+      }
       setArticles(articles);
       setLoading(false);
     };
