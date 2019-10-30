@@ -91,6 +91,7 @@ const Index = ({ posts }) => {
 
   return (
     <>
+      <PageTitle>RSS Rider ð</PageTitle>
       <ul>
         {feeds.map(feed => (
           <li>{feed}</li>
