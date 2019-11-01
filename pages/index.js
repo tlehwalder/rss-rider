@@ -5,7 +5,6 @@ import Parser from "rss-parser";
 import PageTitle from "../components/PageTitle";
 import LoadingBars from "../components/LoadingBars";
 import FeedTile from "../components/FeedTile";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const FeedList = styled.ul`
   list-style: none;
@@ -16,6 +15,30 @@ const FeedList = styled.ul`
 const AddFeedButton = styled.button`
   margin-left: -1px;
 `;
+
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.log(error);
+      return initialValue;
+    }
+  });
+  const setValue = value => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
 
 const Index = ({ posts }) => {
   const [feedsLocal, setFeedsLocal] = useLocalStorage("feeds", []);
