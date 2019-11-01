@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
 
           {/* Progressive Web App: Have address bar match brand colors */}
-          <meta name="theme-color" content="#fff" />
+          <meta name="theme-color" content="#001f3f" />
 
           {/* Progressive Web App: Provide manifest file for metadata */}
           <link rel="manifest" href="./static/manifest.json" />
@@ -112,6 +112,7 @@ export default class MyDocument extends Document {
             media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
             rel="apple-touch-startup-image"
           />
+          <link rel="stylesheet" href="./static/colors.css" />
         </Head>
         <body>
           <Main />

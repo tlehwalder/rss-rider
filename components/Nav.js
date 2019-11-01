@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { title } from "../pages/_document";
 
 const Container = styled.nav`
-  background: #ddd;
+  background: #001f3f;
+
+  a {
+    color: #ffffff;
+  }
 `;
 
 const Content = styled.div`
