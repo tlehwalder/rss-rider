@@ -1,4 +1,4 @@
-# RSS Reader - PWA - WIP
+# RSS Reader - PWA - [Work in Progress]
 Small rss reader webapp, to test out PWA features
 
 ### One-Time Setup
