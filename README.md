@@ -1,6 +1,8 @@
 # RSS Reader - PWA - [Work in Progress]
 Small rss reader webapp, to test out PWA features
 
+Forked from [next-pwa-boilerplate](https://github.com/pingboard/next-pwa-boilerplate)
+
 ### One-Time Setup
 
 Must have [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and [Node.js](https://nodejs.org/en/) installed:
