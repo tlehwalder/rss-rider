@@ -113,6 +113,10 @@ export default class MyDocument extends Document {
             rel="apple-touch-startup-image"
           />
           <link rel="stylesheet" href="./static/colors.css" />
+          <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+          />
         </Head>
         <body>
           <Main />

@@ -17,9 +17,9 @@ const StyledFeedTile = styled.li`
   }
 `;
 
-const FeedTile = ({ item }) => {
+const FeedTile = ({ item, className }) => {
   return (
-    <StyledFeedTile key={item.key}>
+    <StyledFeedTile className={className} key={item.key}>
       <a href={item.link}>{item.title}</a>
       <section dangerouslySetInnerHTML={{ __html: item.content }}></section>
     </StyledFeedTile>
