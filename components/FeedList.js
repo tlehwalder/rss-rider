@@ -8,16 +8,19 @@ const StyledFeedList = styled.ul`
 `;
 
 const buildFeedTile = (item, searchInput) => {
-  return item.title.includes(searchInput) ||
+  return (item && item.title && item.title.includes(searchInput)) ||
     (item.content && item.content.includes(searchInput)) ? (
     <FeedTile item={item} />
   ) : null;
 };
 const FeedList = ({ articles, searchInput }) => {
+  console.log(articles);
   const feeds =
     articles &&
-    articles.flatMap((article, _i) =>
-      article.items.map((item, _j) => ({ ...item, key: `${_i}-${_j}` }))
+    articles.flatMap(
+      (article, _i) =>
+        article.visible &&
+        article.items.map((item, _j) => ({ ...item, key: `${_i}-${_j}` }))
     );
   return (
     <StyledFeedList>

@@ -20,8 +20,13 @@ const StyledFeedTile = styled.li`
 const FeedTile = ({ item, className }) => {
   return (
     <StyledFeedTile className={className} key={item.key}>
-      <a href={item.link}>{item.title}</a>
-      <section dangerouslySetInnerHTML={{ __html: item.content }}></section>
+      <a className="truncate block" href={item.link}>
+        {item.title}
+      </a>
+      <section
+        className="truncate"
+        dangerouslySetInnerHTML={{ __html: item.content }}
+      ></section>
     </StyledFeedTile>
   );
 };
