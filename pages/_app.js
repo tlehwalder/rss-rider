@@ -15,7 +15,6 @@ const GlobalStyle = createGlobalStyle`
     background: var(--background--1);
     font-family: 'PT Sans', sans-serif;
     margin: 0;
-    background-color: #f7f7f7;
   }
 `;
 
