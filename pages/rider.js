@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import fetch from "isomorphic-unfetch";
 import Parser from "rss-parser";
 import findIndex from "lodash/findIndex";
-import omit from "lodash/omit";
 import PageTitle from "../components/PageTitle";
 import LoadingBars from "../components/LoadingBars";
 import { useLocalStorage } from "../hooks/useLocalStorage";
